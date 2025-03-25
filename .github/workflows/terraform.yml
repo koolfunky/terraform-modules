@@ -1,0 +1,164 @@
+name: "Terraform Infrastructure Change Management Pipeline with GitHub Actions"
+
+on:
+ pull_request:
+   branches:
+   - main
+   paths:
+   - modules/**
+
+env:
+ TF_LOG: INFO
+
+jobs:
+ terraform-scaleway-job:
+   name: "Terraform Infrastructure Change Management"
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       shell: bash
+       # We keep Terraform files in the terraform directory.
+       working-directory: ./modules/scaleway/job
+
+   steps:
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+
+     - name: Setup Terraform with specified version on the runner
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.11.0
+
+     - name: Terraform format
+       id: fmt
+       run: terraform fmt -check
+
+     - uses: actions/github-script@v6
+       if: github.event_name == 'pull_request'
+       with:
+         script: |
+           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+
+           </details>
+           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+           github.rest.issues.createComment({
+             issue_number: context.issue.number,
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: output
+           })
+
+ terraform-scaleway-cron_job:
+   name: "Terraform Infrastructure Change Management"
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       shell: bash
+       # We keep Terraform files in the terraform directory.
+       working-directory: ./modules/scaleway/cron_job
+
+   steps:
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+
+     - name: Setup Terraform with specified version on the runner
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.11.0
+
+     - name: Terraform format
+       id: fmt
+       run: terraform fmt -check
+
+     - uses: actions/github-script@v6
+       if: github.event_name == 'pull_request'
+       with:
+         script: |
+           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+
+           </details>
+           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+           github.rest.issues.createComment({
+             issue_number: context.issue.number,
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: output
+           })
+
+ terraform-scaleway-image:
+   name: "Terraform Infrastructure Change Management"
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       shell: bash
+       # We keep Terraform files in the terraform directory.
+       working-directory: ./modules/scaleway/image
+
+   steps:
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+
+     - name: Setup Terraform with specified version on the runner
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.11.0
+
+     - name: Terraform format
+       id: fmt
+       run: terraform fmt -check
+
+     - uses: actions/github-script@v6
+       if: github.event_name == 'pull_request'
+       with:
+         script: |
+           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+
+           </details>
+           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+           github.rest.issues.createComment({
+             issue_number: context.issue.number,
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: output
+           })
+
+ terraform-scaleway-containers:
+   name: "Terraform Infrastructure Change Management"
+   runs-on: ubuntu-latest
+   defaults:
+     run:
+       shell: bash
+       # We keep Terraform files in the terraform directory.
+       working-directory: ./modules/scaleway/containers
+
+   steps:
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+
+     - name: Setup Terraform with specified version on the runner
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.11.0
+
+     - name: Terraform format
+       id: fmt
+       run: terraform fmt -check
+
+     - uses: actions/github-script@v6
+       if: github.event_name == 'pull_request'
+       with:
+         script: |
+           const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+
+           </details>
+           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+           github.rest.issues.createComment({
+             issue_number: context.issue.number,
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: output
+           })

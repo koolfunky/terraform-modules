@@ -1,0 +1,48 @@
+name: Generate terraform docs
+on:
+  - pull_request
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
+    - name: Render terraform jobs docs and push changes back to PR
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: ./modules/scaleway/job/
+        output-file: README.md
+        output-method: replace
+        git-push: "true"
+        git-commit-message: "docs(sources/modules/job): updates README.md"
+        git-push-sign-off: "true"
+    - name: Render terraform jobs docs and push changes back to PR
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: ./modules/scaleway/cron_job/
+        output-file: README.md
+        output-method: replace
+        git-push: "true"
+        git-commit-message: "docs(sources/modules/cron_job): updates README.md"
+        git-push-sign-off: "true"
+    - name: Render terraform jobs docs and push changes back to PR
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: ./modules/scaleway/image/
+        output-file: README.md
+        output-method: replace
+        git-push: "true"
+        git-commit-message: "docs(sources/modules/image): updates README.md"
+        git-push-sign-off: "true"
+    - name: Render terraform jobs docs and push changes back to PR
+      uses: terraform-docs/gh-actions@main
+      with:
+        working-dir: ./modules/scaleway/containers/
+        output-file: README.md
+        output-method: replace
+        git-push: "true"
+        git-commit-message: "docs(sources/modules/containers): updates README.md"
+        git-push-sign-off: "true"

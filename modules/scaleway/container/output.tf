@@ -3,5 +3,5 @@ output "container_id" {
 }
 
 output "trigger_id" {
-  value = scaleway_container_trigger.main.id
+  value = one(scaleway_container_trigger.main[*].id)
 }

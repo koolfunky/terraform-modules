@@ -1,3 +1,3 @@
 output "image_uri" {
-  value = "${scaleway_registry_namespace.main.endpoint}/${data.scaleway_registry_image.main.name}:${data.scaleway_registry_image_tag.main.name}"
+  value = "${data.scaleway_registry_namespace.main.endpoint}/${data.scaleway_registry_image.main.name}:${data.scaleway_registry_image_tag.main.name}"
 }
